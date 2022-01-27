@@ -100,10 +100,15 @@ def todo_edit(title: str):
     f = open(title, "a")
     try:
         new_elements = int(input("Ile elementów chcesz dodać do listy: "))
-        for element in range(new_elements):
-            element = input("Dodaj element listy: ")
-            f.write(f"\n {element}")
-
+        if os.path.getsize(title) == 0:
+            f.write(input("Dodaj element listy: "))
+            for element in range(new_elements - 1):
+                element = input("Dodaj element listy: ")
+                f.write(f"\n {element}")
+        else:
+            for element in range(new_elements):
+                element = input("Dodaj element listy: ")
+                f.write(f"\n {element}")
     except OSError:
         print('Cannot open: ', f)
     except BaseException as err:
@@ -157,7 +162,7 @@ def menu():
             version()
         case _:
             print("Nieprawidłowa opcja")
-    os.system('pause')
+    input("Naciśnij dowolny przycisk aby kontynuować...")
     clear_console()
 
 
